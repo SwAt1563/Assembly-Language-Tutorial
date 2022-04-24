@@ -1,0 +1,46 @@
+RULES :
+
+; mov destination,source
+
+
+1. both operands must be the same size
+
+exp :
+mov ax,bx  ;true
+move ax;bh  ;fasle
+
+
+2.both operands cannot be memory operands 
+
+exp :
+
+num1  db 1;
+num2  db  2;
+
+
+mov  num1,num2   ;fasle
+
+mov dl,num2
+move num1,dl  ;true
+
+
+3. CS, EIP and IP registers can't be destination operands
+
+4. An immediate value can't be moved to a segment registers 
+
+
+exp of true codes :
+
+;imm : immediate
+;mem : memory
+;reg : register
+
+mov reg,reg
+
+mov mem,reg
+
+mov reg , mem
+
+mov mem , imm
+
+mov reg,imm
