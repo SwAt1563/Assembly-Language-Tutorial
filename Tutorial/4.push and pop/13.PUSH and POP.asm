@@ -1,0 +1,142 @@
+.model small
+
+
+.data
+
+
+.stack 200  ; for Reserve storage space
+.code  
+
+
+
+COMMENT !
+ 
+ WE HAVE STACK 
+ START FROM   SP :STACK POINTER
+ AND END TO  SO:STACK ORIGIN 
+ 
+ THE HEAD WILL BE ON THE END (SO)
+ 
+ 
+ ASSUME WE HAVE STACK FROM  2^2 ADDRESS EMPTY IN MEMORY
+ WHICH HAS 8-BIT DATA SIZE
+ 
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY  
+ 
+ 0001 0101 -> VALUE IN MEMORY
+ 
+ THEN WE WILL PUSH VALUE TO THIS STACK
+ THE VALUE WILL REPLACE AT THE FIRST EMPTY POSITION ON THE TOP 
+ OF THE UNEMPTY VALUES
+ 
+
+ I WILL PUSH  0000 1111 VALUE TO THIS STACK
+ THEN THE STACK WILL BECOME 
+ 
+ 
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY
+ 0000 1111 -> THE FIRST VALUE IN STACK IN (SP : POSTION ) 
+ 
+ 0001 0101 -> VALUE IN MEMORY  
+ 
+
+
+ I WILL PUSH  1000 1111 VALUE TO THIS STACK
+ THEN THE STACK WILL BECOME   
+ 
+ 
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY
+ 1000 1111 -> VALUE
+ 0000 1111 -> THE FIRST VALUE IN STACK IN (SP : POSTION ) 
+ 
+ 0001 0101 -> VALUE IN MEMORY   
+ 
+ 
+ 
+ 
+ I WILL PUSH  1010 1111 VALUE TO THIS STACK
+ THEN THE STACK WILL BECOME   
+ 
+ 
+ 0000 0000 -> EMPTY
+ 1010 1111 -> VALUE
+ 1000 1111 -> VALUE
+ 0000 1111 -> THE FIRST VALUE IN STACK IN (SP : POSTION ) 
+ 
+ 0001 0101 -> VALUE IN MEMORY 
+ 
+ 
+ 
+ 
+ 
+ 
+ THEN I WILL POP THE TOPIC VALUE IN THIS STACK
+ SO THE STACK WILL BECOME 
+ 
+ 
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY
+ 1000 1111 -> VALUE
+ 0000 1111 -> THE FIRST VALUE IN STACK IN (SP : POSTION ) 
+ 
+ 0001 0101 -> VALUE IN MEMORY  
+ 
+ 
+ 
+ 
+ I WILL POP THE TOPIC VALUE IN THIS STACK
+ SO THE STACK WILL BECOME 
+ 
+ 
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY
+ 0000 0000 -> EMPTY
+ 0000 1111 -> THE FIRST VALUE IN STACK IN (SP : POSTION ) 
+ 
+ 0001 0101 -> VALUE IN MEMORY  
+ 
+ 
+ 
+ AND SO ON 
+  
+ 
+
+!
+
+
+main proc
+    
+    
+    ;be carfull the stack here with 16-bit
+    ;so we can't  push or pop al,bl,cl,ah,bh,ch  
+    
+    
+    mov ax,5
+    
+    push ax   ; put the ax value in the topic of stack
+    
+    
+    pop dx    ; take the topic stack value and put it in dx
+    
+    add dl,30h  ;to let it start from zero digit and add 5 to it 
+    
+    
+    mov ah,2h
+    int 21h
+    
+    
+    
+    
+    
+    
+    
+endp
+
+
+end main
